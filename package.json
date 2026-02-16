@@ -1,6 +1,6 @@
 {
 	"name": "lmsq",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "CLI for the Lemon Squeezy API — manage your store, subscriptions, orders, and more from the command line. AI-agent optimized output.",
 	"type": "module",
 	"bin": {

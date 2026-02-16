@@ -221,6 +221,28 @@ export const singleSubscription = {
 	}
 }
 
+/**
+ * SDK-wrapped response fixtures.
+ *
+ * The Lemon Squeezy SDK wraps every response in { data, error, statusCode }.
+ * The `data` field contains the raw JSON:API body. These fixtures mirror
+ * what handleList/handleGet actually receive from the SDK.
+ */
+export const sdkSingleOrder = {
+	data: singleOrder,
+	error: null
+}
+
+export const sdkOrderList = {
+	data: orderList,
+	error: null
+}
+
+export const sdkSingleSubscription = {
+	data: singleSubscription,
+	error: null
+}
+
 export const errorNotFound = {
 	jsonapi: { version: '1.0' },
 	errors: [

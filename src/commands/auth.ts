@@ -5,6 +5,7 @@
  * flow because they manage credentials directly rather than fetching resources.
  */
 
+import { createInterface } from 'node:readline/promises'
 import {
 	getAuthenticatedUser,
 	lemonSqueezySetup
@@ -43,12 +44,22 @@ Examples:
 			let apiKey = opts.key
 
 			if (!apiKey) {
-				const entered = prompt('Enter your Lemon Squeezy API key:')
-				if (!entered) {
-					process.stderr.write('No API key provided. Aborting.\n')
-					process.exit(1)
+				const rl = createInterface({
+					input: process.stdin,
+					output: process.stderr
+				})
+				try {
+					const entered = await rl.question(
+						'Enter your Lemon Squeezy API key: '
+					)
+					if (!entered?.trim()) {
+						process.stderr.write('No API key provided. Aborting.\n')
+						process.exit(1)
+					}
+					apiKey = entered.trim()
+				} finally {
+					rl.close()
 				}
-				apiKey = entered
 			}
 
 			// Validate the key by making an authenticated request

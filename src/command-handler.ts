@@ -70,7 +70,7 @@ export async function handleGet(
 		}
 
 		process.stdout.write(
-			`${outputResource(result, mode, ctx.resourceLabel, outputOpts)}\n`
+			`${outputResource(result.data, mode, ctx.resourceLabel, outputOpts)}\n`
 		)
 	} catch (e) {
 		const message = e instanceof Error ? e.message : String(e)
@@ -107,7 +107,7 @@ export async function handleList(
 		}
 
 		process.stdout.write(
-			`${outputList(result, mode, ctx.columns, outputOpts)}\n`
+			`${outputList(result.data, mode, ctx.columns, outputOpts)}\n`
 		)
 	} catch (e) {
 		const message = e instanceof Error ? e.message : String(e)
@@ -151,8 +151,12 @@ export async function handleAction(
 
 		if (result.data !== null) {
 			process.stdout.write(
-				outputResource(result, mode, ctx.resourceLabel, outputOpts) +
-					'\n'
+				`${outputResource(
+					result.data,
+					mode,
+					ctx.resourceLabel,
+					outputOpts
+				)}\n`
 			)
 		}
 	} catch (e) {
