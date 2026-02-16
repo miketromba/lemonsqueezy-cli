@@ -23,7 +23,8 @@
 		"build:compile": "bun build --compile bin/lmsq.ts --outfile dist/lmsq",
 		"build:compile:all": "bun build --compile bin/lmsq.ts --outfile dist/lmsq-darwin-arm64 && bun build --compile --target=bun-darwin-x64 bin/lmsq.ts --outfile dist/lmsq-darwin-x64 && bun build --compile --target=bun-linux-x64 bin/lmsq.ts --outfile dist/lmsq-linux-x64 && bun build --compile --target=bun-linux-arm64 bin/lmsq.ts --outfile dist/lmsq-linux-arm64 && bun build --compile --target=bun-windows-x64 bin/lmsq.ts --outfile dist/lmsq-windows-x64.exe",
 		"prepublishOnly": "bun run build",
-		"prepare": "husky"
+		"publish": "bun run lint && bun run typecheck && bun test && npm publish --access public",
+		"prepare": "husky || true"
 	},
 	"keywords": [
 		"lemonsqueezy",
