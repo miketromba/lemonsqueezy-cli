@@ -150,6 +150,18 @@ export async function handleAction(
 			)
 		}
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e)
+
+		// The SDK throws when parsing empty 204 No Content responses
+		// (e.g. deletes). If we have a successMessage, treat it as success.
+		if (
+			successMessage &&
+			message.includes('Unexpected end of JSON input')
+		) {
+			process.stdout.write(`${successMessage}\n`)
+			return
+		}
+
 		const cliError = classifyError(e)
 		process.stderr.write(`${outputError(cliError, mode)}\n`)
 		process.exit(getExitCode(cliError))
