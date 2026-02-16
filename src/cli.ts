@@ -38,7 +38,7 @@ export function createProgram(): Command {
 				'Use --json for clean JSON, --fields to select specific attributes,\n' +
 				'--only-ids or --count for minimal output.'
 		)
-		.version('0.1.3')
+		.version(require('../package.json').version)
 		.addHelpText(
 			'after',
 			`
