@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import {
 	type CliError,
+	classifyError,
 	EXIT_CODES,
 	formatErrorAsJson,
 	formatErrorAsText,
@@ -126,6 +127,39 @@ describe('getExitCode', () => {
 		expect(getExitCode({ error: 'unknown', message: '' })).toBe(
 			EXIT_CODES.API_ERROR
 		)
+	})
+})
+
+describe('classifyError', () => {
+	test('classifies auth errors from API key messages', () => {
+		const result = classifyError(new Error('No API key configured'))
+		expect(result.error).toBe('auth_error')
+		expect(result.message).toBe('No API key configured')
+	})
+
+	test('classifies auth errors from auth messages', () => {
+		const result = classifyError(new Error('Failed to auth'))
+		expect(result.error).toBe('auth_error')
+	})
+
+	test('classifies field validation errors as invalid_usage', () => {
+		const result = classifyError(
+			new Error(
+				'Unknown field "nonexistent". Valid fields: id, name, status'
+			)
+		)
+		expect(result.error).toBe('invalid_usage')
+	})
+
+	test('defaults to network_error for unknown exceptions', () => {
+		const result = classifyError(new Error('fetch failed'))
+		expect(result.error).toBe('network_error')
+	})
+
+	test('handles non-Error values', () => {
+		const result = classifyError('something broke')
+		expect(result.error).toBe('network_error')
+		expect(result.message).toBe('something broke')
 	})
 })
 

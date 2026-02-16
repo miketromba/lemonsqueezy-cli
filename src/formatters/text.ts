@@ -11,9 +11,15 @@ export interface TextFormatOptions {
 	fields?: string[]
 }
 
+function formatTextValue(value: unknown): string {
+	if (value === null) return 'null'
+	if (typeof value === 'object') return JSON.stringify(value)
+	return String(value)
+}
+
 function resourceToLines(resource: Record<string, unknown>): string {
 	return Object.entries(resource)
-		.map(([key, value]) => `${key}: ${value}`)
+		.map(([key, value]) => `${key}: ${formatTextValue(value)}`)
 		.join('\n')
 }
 

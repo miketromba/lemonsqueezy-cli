@@ -73,6 +73,25 @@ describe('formatResourceAsText', () => {
 		expect(result).toContain('cancelled: false')
 		expect(result).toContain('test_mode: true')
 	})
+
+	test('serializes nested objects as JSON instead of [object Object]', () => {
+		const result = formatResourceAsText({
+			id: '1',
+			first_order_item: { id: 42, product_name: 'Pro Plan', price: 4900 }
+		})
+		expect(result).not.toContain('[object Object]')
+		expect(result).toContain('"product_name":"Pro Plan"')
+		expect(result).toContain('"price":4900')
+	})
+
+	test('serializes arrays as JSON', () => {
+		const result = formatResourceAsText({
+			id: '1',
+			events: ['order_created', 'order_refunded']
+		})
+		expect(result).not.toContain('[object Object]')
+		expect(result).toContain('["order_created","order_refunded"]')
+	})
 })
 
 describe('formatListAsText', () => {

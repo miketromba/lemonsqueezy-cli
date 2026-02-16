@@ -11,7 +11,7 @@ import {
 	validateLicense
 } from '@lemonsqueezy/lemonsqueezy.js'
 import type { Command } from 'commander'
-import { type CliError, getExitCode } from '../errors.ts'
+import { type CliError, classifyError, getExitCode } from '../errors.ts'
 import { parseCommaSeparated } from '../helpers.ts'
 import {
 	type OutputOptions,
@@ -153,11 +153,7 @@ Example:
 				)
 			}
 		} catch (e) {
-			const message = e instanceof Error ? e.message : String(e)
-			const cliError: CliError = {
-				error: 'network_error',
-				message
-			}
+			const cliError = classifyError(e)
 			process.stderr.write(`${outputError(cliError, mode)}\n`)
 			process.exit(getExitCode(cliError))
 		}
@@ -218,11 +214,7 @@ Examples:
 				)
 			}
 		} catch (e) {
-			const message = e instanceof Error ? e.message : String(e)
-			const cliError: CliError = {
-				error: 'network_error',
-				message
-			}
+			const cliError = classifyError(e)
 			process.stderr.write(`${outputError(cliError, mode)}\n`)
 			process.exit(getExitCode(cliError))
 		}
@@ -282,11 +274,7 @@ Example:
 				)
 			}
 		} catch (e) {
-			const message = e instanceof Error ? e.message : String(e)
-			const cliError: CliError = {
-				error: 'network_error',
-				message
-			}
+			const cliError = classifyError(e)
 			process.stderr.write(`${outputError(cliError, mode)}\n`)
 			process.exit(getExitCode(cliError))
 		}

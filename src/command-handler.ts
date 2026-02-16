@@ -5,7 +5,7 @@
 
 import { lemonSqueezySetup } from '@lemonsqueezy/lemonsqueezy.js'
 import { getApiKey } from './config.ts'
-import { type CliError, getExitCode } from './errors.ts'
+import { type CliError, classifyError, getExitCode } from './errors.ts'
 import { buildPage, parseCommaSeparated } from './helpers.ts'
 import {
 	type OutputOptions,
@@ -73,12 +73,7 @@ export async function handleGet(
 			`${outputResource(result.data, mode, ctx.resourceLabel, outputOpts)}\n`
 		)
 	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e)
-		const isAuth = message.includes('API key') || message.includes('auth')
-		const cliError: CliError = {
-			error: isAuth ? 'auth_error' : 'network_error',
-			message
-		}
+		const cliError = classifyError(e)
 		process.stderr.write(`${outputError(cliError, mode)}\n`)
 		process.exit(getExitCode(cliError))
 	}
@@ -110,12 +105,7 @@ export async function handleList(
 			`${outputList(result.data, mode, ctx.columns, outputOpts)}\n`
 		)
 	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e)
-		const isAuth = message.includes('API key') || message.includes('auth')
-		const cliError: CliError = {
-			error: isAuth ? 'auth_error' : 'network_error',
-			message
-		}
+		const cliError = classifyError(e)
 		process.stderr.write(`${outputError(cliError, mode)}\n`)
 		process.exit(getExitCode(cliError))
 	}
@@ -160,12 +150,7 @@ export async function handleAction(
 			)
 		}
 	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e)
-		const isAuth = message.includes('API key') || message.includes('auth')
-		const cliError: CliError = {
-			error: isAuth ? 'auth_error' : 'network_error',
-			message
-		}
+		const cliError = classifyError(e)
 		process.stderr.write(`${outputError(cliError, mode)}\n`)
 		process.exit(getExitCode(cliError))
 	}

@@ -57,6 +57,22 @@ export function formatErrorAsJson(error: CliError): string {
 }
 
 /**
+ * Classify a caught exception into a CliError.
+ * Centralises the heuristic so every catch block doesn't re-invent it.
+ */
+export function classifyError(e: unknown): CliError {
+	const message = e instanceof Error ? e.message : String(e)
+
+	if (message.includes('API key') || message.includes('auth')) {
+		return { error: 'auth_error', message }
+	}
+	if (message.includes('Unknown field')) {
+		return { error: 'invalid_usage', message }
+	}
+	return { error: 'network_error', message }
+}
+
+/**
  * Determine the exit code for a given error.
  */
 export function getExitCode(error: CliError): number {
