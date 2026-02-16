@@ -10,7 +10,7 @@ Comprehensive command-line interface for the [Lemon Squeezy API](https://docs.le
 
 - **Complete API coverage** — 62 operations across 22 resource types (stores, orders, subscriptions, license keys, checkouts, webhooks, and more)
 - **AI-agent optimized** — flat `key: value` output by default, `--fields` to select specific attributes, `--only-ids` / `--count` / `--pluck` for minimal output
-- **Works everywhere** — ships as a single 111 KB JS file, installs via npm/npx/yarn/pnpm/bun (Node.js 18+). Standalone binaries also available.
+- **Works everywhere** — ships as a single JS file, installs via npm/npx/yarn/pnpm/bun (Node.js 18+)
 - **Developer-friendly** — comprehensive `--help` on every command, consistent patterns, descriptive error messages
 - **Multiple output modes** — auto-detects TTY for colored tables vs. token-efficient text. `--json` for clean flattened JSON.
 
@@ -57,48 +57,10 @@ npx lmsq --help
 lmsq --version
 ```
 
-### Standalone Binary (no runtime needed)
-
-Download a pre-built binary from [GitHub Releases](https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases) — no Node.js or Bun required.
-
-<details>
-<summary>macOS / Linux / Windows install commands</summary>
-
-**macOS (Apple Silicon):**
-```bash
-curl -fsSL https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases/latest/download/lmsq-darwin-arm64 -o lmsq
-chmod +x lmsq && sudo mv lmsq /usr/local/bin/
-```
-
-**macOS (Intel):**
-```bash
-curl -fsSL https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases/latest/download/lmsq-darwin-x64 -o lmsq
-chmod +x lmsq && sudo mv lmsq /usr/local/bin/
-```
-
-**Linux (x64):**
-```bash
-curl -fsSL https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases/latest/download/lmsq-linux-x64 -o lmsq
-chmod +x lmsq && sudo mv lmsq /usr/local/bin/
-```
-
-**Linux (ARM64):**
-```bash
-curl -fsSL https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases/latest/download/lmsq-linux-arm64 -o lmsq
-chmod +x lmsq && sudo mv lmsq /usr/local/bin/
-```
-
-**Windows (PowerShell):**
-```powershell
-Invoke-WebRequest -Uri "https://github.com/lemonsqueezy-cli/lemonsqueezy-cli/releases/latest/download/lmsq-windows-x64.exe" -OutFile "$env:LOCALAPPDATA\lmsq.exe"
-```
-
-</details>
-
 ### From Source
 
 ```bash
-git clone https://github.com/lemonsqueezy-cli/lemonsqueezy-cli.git
+git clone https://github.com/miketromba/lemonsqueezy-cli.git
 cd lemonsqueezy-cli
 bun install
 bun run dev -- --help    # run from source (requires Bun)
@@ -267,26 +229,12 @@ lmsq subscriptions get 456 --pluck status
 | `--only-ids` | ~5 |
 | `--count` | ~3 total |
 
-## Supported Platforms
-
-**npm install** works on any platform with Node.js 18+.
-
-Standalone binaries are available for:
-
-| Platform | Architecture | Binary |
-|----------|-------------|--------|
-| macOS | Apple Silicon (ARM64) | `lmsq-darwin-arm64` |
-| macOS | Intel (x64) | `lmsq-darwin-x64` |
-| Linux | x64 | `lmsq-linux-x64` |
-| Linux | ARM64 | `lmsq-linux-arm64` |
-| Windows | x64 | `lmsq-windows-x64.exe` |
-
 ## Development
 
 Requires [Bun](https://bun.sh) for development (the published package only needs Node.js).
 
 ```bash
-git clone https://github.com/lemonsqueezy-cli/lemonsqueezy-cli.git
+git clone https://github.com/miketromba/lemonsqueezy-cli.git
 cd lemonsqueezy-cli
 bun install
 
@@ -296,11 +244,8 @@ bun run lint            # Biome linter
 bun run typecheck       # TypeScript check
 bun run dev -- --help   # Run from source (Bun)
 
-bun run build           # Bundle for Node → dist/lmsq.js (111 KB)
+bun run build           # Bundle for Node → dist/lmsq.js
 node dist/lmsq.js --help  # Verify the Node bundle works
-
-bun run build:compile       # Standalone binary for your platform
-bun run build:compile:all   # Standalone binaries for all platforms
 ```
 
 ### How the build works
