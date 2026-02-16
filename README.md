@@ -1,4 +1,6 @@
-# lmsq — Lemon Squeezy CLI
+<p align="center">
+  <img src="assets/banner.png" alt="lmsq — Lemon Squeezy CLI" width="100%">
+</p>
 
 > **Unofficial** — this project is not affiliated with or endorsed by [Lemon Squeezy](https://lemonsqueezy.com). It is a community-built tool powered by the official [TypeScript SDK](https://github.com/lmsqueezy/lemonsqueezy.js).
 
