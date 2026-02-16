@@ -100,7 +100,7 @@ Examples:
 			}
 
 			process.stdout.write(
-				`${outputList(result, mode, COLUMNS, outputOpts)}\n`
+				`${outputList(result.data, mode, COLUMNS, outputOpts)}\n`
 			)
 		} catch (e) {
 			const message = e instanceof Error ? e.message : String(e)
@@ -142,7 +142,7 @@ Examples:
 			}
 
 			process.stdout.write(
-				`${outputResource(result, mode, 'Affiliate', outputOpts)}\n`
+				`${outputResource(result.data, mode, 'Affiliate', outputOpts)}\n`
 			)
 		} catch (e) {
 			const message = e instanceof Error ? e.message : String(e)
